@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 // const { ListNode } = require('../extensions/list-node.js');
 
@@ -22,11 +22,25 @@ const { NotImplementedError } = require('../extensions/index.js');
  *   }
  * }
  */
-function removeKFromList(/* l, k */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function removeKFromList(l, k) {
+  let start = l; // когда переписываем ссылки на некст - они меняются и в оригинальном объекте, потому, что в start лежит ССЫЛКА на объект (а не объект)
+
+  if (start.value === k) {
+    l = l.next; // 1 reassign головы (потому что далее она не проверяется)
+  }
+
+  while (start.next !== null) {
+    if (start.next.value === k) {
+      // проверка - есть ли в сл. элементе value === k
+      start.next = start.next.next; // перескакиваем через один элемент
+    } else {
+      start = start.next;
+    }
+  }
+  // внутри цикла вайл меняем next, если value next элемента === k (тогда некст скипаем, меняя ссылку текущего элемента на ссылку некст следующего)
+  return l;
 }
 
 module.exports = {
-  removeKFromList
+  removeKFromList,
 };
